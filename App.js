@@ -6,8 +6,8 @@ import {
   SafeAreaView,
   StatusBar,
   FlatList,
-} from "react-native";
-import pokemonList from "./data.json";
+} from 'react-native';
+import pokemonList from './data.json';
 
 export default function App() {
   return (
@@ -25,6 +25,7 @@ export default function App() {
       <View style={styles.scrollView}>
         <FlatList
           data={pokemonList}
+          // style={{ flex: 1, marginTop: '100%' }}
           renderItem={({ item }) => {
             return (
               <View style={styles.card} key={item.id}>
@@ -35,6 +36,18 @@ export default function App() {
           }}
           keyExtractor={(item) => item.id.toString()}
           // horizontal
+          ItemSeparatorComponent={<View style={{ height: 16 }} />}
+          ListEmptyComponent={
+            <View style={styles.noDataContainer}>
+              <Text style={styles.noDataText}>No items found</Text>
+            </View>
+          }
+          ListHeaderComponent={
+            <Text style={styles.headerText}>Pokemon List</Text>
+          }
+          ListFooterComponent={
+            <Text style={styles.footerText}>End of list:(</Text>
+          }
         />
       </View>
     </SafeAreaView>
@@ -44,20 +57,41 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#f5f5f5",
+    backgroundColor: '#f5f5f5',
     paddingTop: StatusBar.currentHeight,
   },
   scrollView: {
     paddingHorizontal: 16,
+    flex: 1,
   },
   card: {
-    backgroundColor: "white",
+    backgroundColor: 'white',
     padding: 16,
     borderRadius: 8,
     borderWidth: 1,
-    marginBottom: 16,
+    // marginBottom: 16,
   },
   cardText: {
     fontSize: 24,
+  },
+  noDataContainer: {
+    flex: 1,
+    marginTop: '100%',
+    // justifyContent: 'center',
+    alignItems: 'center',
+  },
+  noDataText: {
+    fontSize: 24,
+  },
+
+  headerText: {
+    fontSize: 24,
+    textAlign: 'center',
+    marginBottom: 12,
+  },
+  footerText: {
+    fontSize: 24,
+    textAlign: 'center',
+    marginTop: 12,
   },
 });
